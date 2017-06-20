@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, jsonify, request
-import database, config
+import config
 from config import conf
+from flask import Flask, jsonify, request
+
+from StuBC import database
 
 db = database.MongoDatabase()
 
@@ -10,7 +12,7 @@ app = Flask(__name__)
 
 
 # Default response with result and message
-def default_json_response(result, msg):
+def default_json_response(result, msg, err_code=-1):
     return jsonify({"result": result, "msg": msg})
 
 
@@ -20,11 +22,11 @@ def send_mail(email, message):
 
 
 # GET : -
-# RET : 'Flask is running!'
+# RET : 'StuBC server is running!'
 # DEF : To test if server is running
 @app.route('/')
 def index():
-    return 'Flask is running!'
+    return 'StuBC server is running!'
 
 
 # GET : email, username
@@ -69,7 +71,7 @@ def user_login():
 
 # GET : email
 # RET : true/false, msg
-# DEF : User login
+# DEF : Recovers the user password by sending new password to the email
 @app.route('/user_recovery_password', methods=['GET', 'POST'])
 def user_recovery_password():
     email = request.json["email"]
@@ -86,6 +88,8 @@ def user_recovery_password():
     
     Username = {}
     Password : {}
+    
+    Please change your password soon for better security.
     """.format(username, new_password)
     send_mail(email, email_msg)
     db.update_user_password(username, new_password)

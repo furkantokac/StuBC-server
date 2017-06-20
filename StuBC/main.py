@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-import server
+from StuBC import server
 
 server.run()
