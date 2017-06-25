@@ -1,6 +1,7 @@
-# StuBC Server Alpha V0.0
+# StuBC Server Alpha V0.2
 
 StuBC is a project that helps to students in student branch management. This is the main server of StuBC project, core of the system. This project can be used as an example of RestAPI, Flask, MongoDB etc. Android client will be added soon.
+
 
 ### Requirements
 * Python3+ (Python2 is not tested.)

@@ -1,0 +1,101 @@
+// StuBC V0.2
+
+General Information
+    Content-Type    : application/json
+    Methot          : Post
+    Default JSON Response
+    {
+        "result" : True||False,
+        "msg" : ""
+    }
+
+--------------------------------
+/
+    DEFINATION
+        Test if server is running
+
+    GET
+        -
+
+    RETURN
+        s.MSG_SERVER_RUNNING
+
+--------------------------------
+/user_register
+    DEFINATION
+        User registration. Adds new user to database. Generate new password and send it to the email.
+
+    GET
+        Params
+        {
+            "email" : "",
+            "username" : ""
+        }
+
+    RETURN
+        Default JSON Response
+        s.ERR_INVALID_EMAIL_DOMAIN
+        s.ERR_DUBLICATED_EMAIL
+        s.ERR_DUBLICATED_USERNAME
+        s.MSG_PASSWORD_SEND_TO_EMAIL
+
+--------------------------------
+/user_login
+    DEFINATION
+        User login by email and password
+
+    GET
+        Params
+        {
+            "email" : "",
+            "password" : ""
+        }
+
+    RETURN
+        Params
+        {
+            "result" : True || False,
+            "msg" : "",
+            "email" : "",
+            "username" : "",
+            "token" : ""
+        }
+        s.ERR_EMAIL_PASSWORD_NOT_MATCH
+        s.MSG_LOGIN_SUCCESSFUL
+
+--------------------------------
+/user_recovery_password
+    DEFINATION
+        Recovers the user's password by sending new password to the user's email
+
+    GET
+        Params
+        {
+            "email" : ""
+        }
+
+    RETURN
+        Default JSON Response
+        s.ERR_EMAIL_NOT_EXIST
+        s.MSG_RECOVERY_MAIL_SENT
+
+--------------------------------
+/user_update_password
+    DEFINATION
+        Recovers the user's password by sending new password to the user's email
+
+    GET
+        Params
+        {
+            "email" : "",
+            "password" : "",
+            "new_password" : ""
+        }
+
+    RETURN
+        Default JSON Response
+        s.ERR_EMAIL_NOT_EXIST
+        s.ERR_EMAIL_PASSWORD_NOT_MATCH
+        s.MSG_PASSWORD_UPDATE
+
+--------------------------------

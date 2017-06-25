@@ -1,13 +1,25 @@
 # -*- coding: utf-8 -*-
-import random
+import random, hashlib
 
-conf = dict()
+# Store sensitive data in credentials.py
+# import credentials
+import credentials_empty as credentials
 
-conf["salt"] = "TEST"
+token = dict()
+token["email"] = "token"  # example
 
-conf["server"] = dict()
-conf["server"]["ip"] = "0.0.0.0"
-conf["server"]["port"] = 9977
+
+class Conf:
+    def __init__(self):
+        self.server = credentials.Server()
+        self.mondb = credentials.MongoDatabase()
+
+        self.datetime_format = "%y %m %d"
+
+
+# Send mail to email
+def send_mail(email, message):
+    return True
 
 
 def generate_password(len=8):
@@ -17,26 +29,14 @@ def generate_password(len=8):
         if tmp == 0:
             pwd += chr(random.randint(48, 57))
         else:
-            pwd += chr(random.randint(65, 90))
+            pwd += chr(random.randint(97, 112))
 
     return pwd
 
 
-class MongoDBCredentials:
-    def __init__(self, name=None, ip=None, port=None, user=None, password=None):
-        self.name = name
-        self.ip = ip
-        self.port = port
-        self.user = user
-        self.password = password
+def generate_token(unique_str):
+    return hasher(generate_password(8) + unique_str + generate_password(8))
 
-
-class ServerCredentials:
-    def __init__(self, ip=None, port=None):
-        self.ip = ip
-        self.port = port
-
-
-class Paths:
-    def __init__(self):
-        pass
+# RET : hashed value in string type
+def hasher(value):
+    return hashlib.sha1(value.encode()).hexdigest()
